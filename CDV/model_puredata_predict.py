@@ -10,11 +10,11 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from nn_series import CdV_base_dynamics
-from DataGen import CdV
+from data_series import CdV_base_dynamics
+from data_gen import CdV
 from error_func import traj_err
-from lstm_hybrid import lstm_hybrid
-from lstm_data import lstm_data
+from model_arch1 import lstm_hybrid
+from model_puredata import lstm_data
 
 
 """
