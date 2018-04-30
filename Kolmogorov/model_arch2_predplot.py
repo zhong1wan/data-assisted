@@ -17,8 +17,15 @@ from model_puredata_arch2 import lstm_series
 
 
 """
-model built just for prediction; no training option
-lstm implementation param: use 0 for CPU, 2 for GPU
+lowD version: only models the dynamics of a few modes
+			  lstm layer is assumed to have more units than input dimensions
+			  and is directly fed into the dense layer without concatenating
+			  with the input
+
+architecture2: reads in a setup sequence and generate fixed-length predictions of
+			  states and dynamics. 
+
+The structure is this file is used for prediction.
 
 """
 
@@ -151,19 +158,12 @@ def main():
 	# s1 = int(Ts/.005)			# first idx of setup sequence
 	# s = int(Ts/dt) 					# number of setup steps
 	sp = './logs/lstm_seq2seq_4/step50_1kepoch/'
-	weights = './logs/lstm_seq2seq_4/step100/weights.best.hdf5'
+	weights = './logs/lstm_seq2seq_4/step50/weights.best.hdf5'
 	# steps = 100							# number of prediction steps
 	# s2 = steps*n 							# last index of prediction sequence
 
 	## load test data file
 	npzfile = np.load('./data/ktriad_s100p1000_leadtimetest.npz')
-	# test_inputs = npzfile['inputs'][:, -s1::n, :]
-	# true_traj = npzfile['true_traj'][:, :s2:n, :]
-	# trunc_traj = npzfile['trunc_traj'][:, :s2:n, :]
-	# dydt_traj, Bxy_traj = npzfile['dydt_traj'][:, :s2:n, :], npzfile['Bxy_traj'][:, :s2:n, :]
-	# Bxy_traj = Bxy_traj*output_scale + output_mean
-
-
 	lstm_model = lstm_pred(trunc_dim, s, hid_units_x, hid_units_B, savepath=sp)
 	lstm_model.compile()
 	
@@ -207,14 +207,14 @@ def main():
 	lstm_data = lstm_series(trunc_dim, s, steps, dt, hid_units_x, hid_units_B, savepath=sp)
 	lstm_data.K_setup(phys_trunc_model, input_mean, input_scale)
 	lstm_data.compile()
-	lstm_data.model.load_weights('./logs/lstm_seq2seq_5/step50/weights.best.hdf5')
+	lstm_data.model.load_weights('./logs/lstm_seq2seq_5/step50/weights.best.hdf5')    ## trained weights for pure data model
 	Yd = lstm_data.Y_eval([test_inputs])
 	Yd = np.swapaxes(np.squeeze(np.array(Yd)), 0, 1)
 	a_mag_d = np.sqrt(Yd[:, steps - 1, :3]**2 + Yd[:, steps - 1, 3:]**2)/289
 
 
 	###
-	###	3*3 subplots
+	###	3*3 subplots, generate lead-time plots similar to figure 8 in the paper
 	###
 	plt.rc('axes', linewidth=1.5)
 	plt.rc('text', usetex=True)

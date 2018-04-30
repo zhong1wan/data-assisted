@@ -23,6 +23,9 @@ lowD version: only models the dynamics of a few modes
 			  and is directly fed into the dense layer without concatenating
 			  with the input
 
+architecture2: reads in a setup sequence and generate fixed-length predictions of
+			  states and dynamics. The structure is this file is used for training.
+
 lstm implementation param: use 0 for CPU, 2 for GPU
 
 """

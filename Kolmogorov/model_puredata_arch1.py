@@ -22,6 +22,9 @@ lowD version: only models the dynamics of a few modes
 			  and is directly fed into the dense layer without concatenating
 			  with the input
 
+This structure is purely data-driven and predicts the total dynamics directly,
+in the same way as architecture 1.
+
 lstm implementation param: use 0 for CPU, 2 for GPU
 
 """
@@ -203,13 +206,7 @@ def main():
 
 	## load training data from file
 	datafile = np.load('./data/ktriad_l300_totald.npz')
-	# #####
-	# regular_idx = np.load('./data/regular_idx_2std.npz')
-	# inputs = datafile['inputs'][regular_idx['regular']]
-	# outputs = datafile['outputs'][regular_idx['regular']]
-	# train_inputs, train_outputs = inputs[:50000], outputs[:50000]
-	# test_inputs, test_outputs = inputs[-10000::5], outputs[-10000::5]
-	# #####
+
 	train_inputs, train_outputs = datafile['inputs'][:50000], datafile['outputs'][:50000]
 	B_mean, B_scale = datafile['output_mean'], datafile['output_scale']
 	train_outputs = train_outputs*B_scale + B_mean					# unscale outputs

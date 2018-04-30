@@ -23,7 +23,7 @@ lowD version: only models the dynamics of a few modes
 			  and is directly fed into the dense layer without concatenating
 			  with the input
 
-lstm implementation param: use 0 for CPU, 2 for GPU
+This structure implements the two-stage fully data-driven model (architecture 2).
 
 """
 

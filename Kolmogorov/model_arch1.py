@@ -186,7 +186,6 @@ def main():
 
 	## set up physical model
 	wn0 = [[0,4], [1,0], [1,4]]							# wave numbers we are interested in predicting
-	# wn = Kol2D_trunc.idx_gen(kt1=4, kt2=4)				# wave numbers included in truncated model
 	wn = wn0
 	wn_idx = Kol2D_trunc.find_wn(wn, wn0)				# find indices of wn0 in wn
 	trunc_dim = 2*len(wn)
@@ -197,22 +196,13 @@ def main():
 	hid_units_x = 70
 	hid_units_B = 38
 	l = 200
-	sp = './logs/lstm_hybrid_19/'
-	pretrain = './logs/lstm_hybrid_19/weights.best.hdf5'
+	sp = './logs/lstm_hybrid_1/'
+	pretrain = './logs/lstm_hybrid_1/weights.best.hdf5'
 
 
-	## load training data from file
+	## load training data from file: input is standardized, output remains unscaled
 	datafile = np.load('./data/ktriad_l200_dt4step.npz')
-	# #####
-	# regular_idx = np.load('./data/regular_idx_2std.npz')
-	# inputs = datafile['inputs'][regular_idx['regular']]
-	# outputs = datafile['outputs'][regular_idx['regular']]
-	# train_inputs, train_outputs = inputs[:50000], outputs[:50000]
-	# test_inputs, test_outputs = inputs[-10000::5], outputs[-10000::5]
-	# #####
 	train_inputs, train_outputs = datafile['inputs'][:50000], datafile['outputs'][:50000]
-	# B_mean, B_scale = datafile['output_mean'], datafile['output_std']
-	# train_outputs = train_outputs*B_scale + B_mean					# unscale outputs
 
 
 	## initiate lstm model and perform training
@@ -231,6 +221,7 @@ def main():
 	weights = sp + 'weights.best.hdf5'
 	test_pred = lstm_model.predict(test_inputs, loadWeights=weights)
 	
+	## plot test results
 	case_idx = 80
 	T = .005*l
 	tt = np.linspace(.005, T, l)

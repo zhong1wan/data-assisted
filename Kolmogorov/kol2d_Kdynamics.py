@@ -73,6 +73,7 @@ class K_dynamics(object):
 		self.model = K.function(inputs=[inputs], outputs=[dy])
 
 
+## test the accuracy in the main program
 def main():
 	
 	file = np.load('./data/ktriad_l200_standardized.npz')

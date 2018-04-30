@@ -1,6 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+"""
+Implements a pseudo-spectral solver for the Kolmogorov flow
+
+"""
+
 np.seterr(divide='ignore', invalid='ignore')
 
 class Kol2D_odd(object):
