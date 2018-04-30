@@ -14,6 +14,11 @@ from collections import Counter
 from kol2d_odd import Kol2D_odd
 from kol2d_trunc import Kol2D_trunc
 
+"""
+plot time series, spectrum and snapshots (figure 5 in paper)
+
+"""
+
 def main():
 	
 	datafile = 'data/traj_pt100k_dT1.npz'

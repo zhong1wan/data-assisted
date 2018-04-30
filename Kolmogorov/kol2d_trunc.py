@@ -4,6 +4,11 @@ from tqdm import tqdm
 
 from kol2d_odd import Kol2D_odd
 
+"""
+implements Kolmogorov dynamics truncated/projected to specified modes
+
+"""
+
 
 class Kol2D_trunc(Kol2D_odd):
 	"""docstring for Kol2D_trunc"""
