@@ -1,6 +1,8 @@
 # Data-assisted reduced-order modeling of extreme events in complex dynamical systems
 Source code for data-assisted reduced-order modeling of extreme events in complex dynamical systems, available on arXiv: https://arxiv.org/abs/1803.03365
 
+Datasets available at: https://www.dropbox.com/sh/2baoxl9du8incy3/AADqNoA0kfsOYHDuhRCUAAYZa?dl=0
+
 Abstract:
 
 The prediction of extreme events, from avalanches and droughts to tsunamis and epidemics, depends on the formulation and analysis of relevant, complex dynamical systems. Such dynamical systems are characterized by high intrinsic dimensionality with  extreme events having the form of rare transitions that are several standard deviations away from the mean. Such systems are not amenable to classical order-reduction methods through projection of the governing equations due to the large intrinsic dimensionality of the underlying attractor as well as  the complexity of the transient events. Alternatively, data-driven techniques aim to quantify the dynamics of specific, critical modes by utilizing data-streams and  by expanding the dimensionality of the reduced-order model using delayed coordinates. In turn, these methods have major limitations in regions of the phase space with sparse data, which is the case for extreme events.
